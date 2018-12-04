@@ -3,17 +3,17 @@ Jeg lære Norsk. Jeg har ikke nyttig web ordbok. Jeg vil skape ordboken selv.
 
 
 ### Requirements
-Google Chrome wth Developer mode
-npm
+* Google Chrome wth Developer mode
+* npm
+
 
 
 ### Commands
-npm install create-react-app
-
-### `npm start`
-### `npm test`
-### `npm run build`
+* npm run build
+* npm start
+* npm test
 
 
 ### Check also
-[Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* [Build Chrome extention with ReactJs](https://medium.com/@gilfink/building-a-chrome-extension-using-react-c5bfe45aaf36)
