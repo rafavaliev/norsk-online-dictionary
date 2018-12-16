@@ -20,53 +20,53 @@ ReactDOM.render(
 // Learn more about service workers: http://bit.ly/CRA-PWA
 serviceWorker.unregister();
 */
+import { applyMiddleware, createStore } from "redux";
+import { logger } from "redux-logger";
+import thunk from "redux-thunk";
+import axios from "axios";
+import promise from "redux-promise-middleware";
 
-import { applyMiddleware, combineReducers, createStore } from "redux";
+const initialState = {
+  fetching: false,
+  fetched: false,
+  words: [],
+  err: null
+};
 
-const userReducer = (state = {}, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case "CHANGE_NAME": {
-      state = { ...state, name: action.payload };
-      break;
+    case "FETCH_WORDS_PENDING": {
+      return { ...state, fetching: true };
     }
-    case "CHANGE_AGE": {
-      state = { ...state, age: action.payload };
-      break;
+    case "FETCH_WORDS_FULFILLED": {
+      return { ...state, fetching: false, words: action.payload };
     }
-    case "ERROR": {
-      throw new Error("AAA!!");
+    case "FETCH_WORDS_REJECTED": {
+      return { ...state, fetching: false, error: action.payload };
     }
   }
   return state;
 };
 
-const tweetsReducer = (state = [], action) => {
-  return state;
-};
+const middleware = applyMiddleware(promise(), thunk, logger);
+const store = createStore(reducer, middleware);
 
-const logger = store => next => action => {
-  console.log("action fired", action);
-  next(action);
-};
-
-const error = store => next => action => {
-  try {
-    next(action);
-  } catch (e) {
-    console.log("AHH!", e);
-  }
-};
-
-const middleware = applyMiddleware(logger, error);
-
-const reducers = combineReducers({
-  user: userReducer,
-  tweets: tweetsReducer
+store.dispatch(dispatch => {
+  dispatch({ type: "FETCH_WORDS" });
+  axios
+    .get("http://ya.ru")
+    .then(response => {
+      dispatch({
+        type: "RECEIVED_WORDS",
+        payload: response.data
+      });
+    })
+    .catch(err => {
+      dispatch({ type: "FETCH_WORD_ERROR", payload: err });
+    });
 });
 
-const store = createStore(reducers, middleware);
-
-store.dispatch({ type: "CHANGE_NAME", payload: "Will" });
-store.dispatch({ type: "CHANGE_NAME", payload: "Rafael" });
-store.dispatch({ type: "CHANGE_AGE", payload: 24 });
-store.dispatch({ type: "ERROR", payload: 24 });
+store.dispatch({
+  type: "FETCH_USERS",
+  payload: axios.get("http://ya.ru")
+});
