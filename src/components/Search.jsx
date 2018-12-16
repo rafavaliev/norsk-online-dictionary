@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import Translation from "./Translation";
 
 class Search extends Component {
@@ -44,7 +44,7 @@ class Search extends Component {
 
   getTranslations = translations => {
     return translations.map(t => {
-      return <Translation word={t.word} example={t.example} />;
+      return <Translation key={t.word} word={t.word} example={t.example} />;
     });
   };
 

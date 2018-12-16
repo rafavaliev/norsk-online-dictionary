@@ -16,7 +16,6 @@ class StoredDictionary extends Component {
 
   componentWillMount() {
     DictionaryStore.on("change", this.updateFromStore);
-    console.log(DictionaryStore.listenerCount());
   }
   componentWillUnmount() {
     DictionaryStore.removeListener("change", this.updateFromStore);
@@ -25,9 +24,14 @@ class StoredDictionary extends Component {
   render() {
     return (
       <div>
-        <button onClick={() => this.createWord()}>Generate word</button>
+        <button
+          className="button btn-default"
+          onClick={() => this.createWord()}
+        >
+          Generate word
+        </button>
         <button onClick={() => this.reloadWords()}>Reload words</button>
-        {this.state.isFetching == true && <h1>Loading...</h1>}
+        {this.state.isFetching === true && <h1>Loading...</h1>}
         {this.state.words.length > 0 && (
           <div>
             <h1>My words</h1>

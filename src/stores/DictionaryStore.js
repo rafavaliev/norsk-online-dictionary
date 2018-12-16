@@ -1,5 +1,4 @@
 import { EventEmitter } from "events";
-import Dispatcher from "../dispatcher";
 import dispatcher from "../dispatcher";
 
 class DictionaryStore extends EventEmitter {
