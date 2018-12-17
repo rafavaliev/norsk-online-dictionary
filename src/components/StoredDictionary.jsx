@@ -1,46 +1,52 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import DictionaryWord from "./DictionaryWord";
-import DictionaryStore from "../stores/DictionaryStore";
 import * as DictionaryActions from "../actions/DictionaryActions";
+import { connect } from "react-redux";
+import "bootstrap/dist/css/bootstrap.min.css";
 
+import {
+  fetchWords,
+  createWord,
+  deleteWord
+} from "../actions/DictionaryActions";
+
+@connect(store => {
+  return {
+    words: store.dictionary.words,
+    fetching: store.dictionary.fetching,
+    fetched: store.dictionary.fetched,
+    error: store.dictionary.error
+  };
+})
 class StoredDictionary extends Component {
-  constructor(props) {
-    super(props);
-    this.updateFromStore = this.updateFromStore.bind(this);
-    this.state = {
-      words: DictionaryStore.getAll(),
-      isFetching: DictionaryStore.isFetching
-    };
-  }
-
-  componentWillMount() {
-    DictionaryStore.on("change", this.updateFromStore);
-  }
-  componentWillUnmount() {
-    DictionaryStore.removeListener("change", this.updateFromStore);
-  }
-
   render() {
     return (
       <div>
         <button
-          className="button btn-default"
-          onClick={() => this.createWord()}
+          onClick={() => this.handleSave()}
+          type="button"
+          className="btn btn-primary m-2"
         >
           Generate word
         </button>
-        <button onClick={() => this.reloadWords()}>Reload words</button>
-        {this.state.isFetching === true && <h1>Loading...</h1>}
-        {this.state.words.length > 0 && (
+        <button
+          onClick={() => this.reloadWords()}
+          type="button"
+          className="btn btn-primary m-2"
+        >
+          Reload words
+        </button>
+        {this.props.fetching === true && <h1>Loading...</h1>}
+        {this.props.words.length > 0 && (
           <div>
-            <h1>My words</h1>
+            <h4>You have {this.props.words.length} words in your dictionary</h4>
             {this.getWords()}
           </div>
         )}
-        {this.state.words.length === 0 && (
+        {this.props.words.length === 0 && (
           <div>
-            <h1>There are no words.</h1>
+            <h4>There are no words.</h4>
             <p>
               You can add them on <Link to="/">search tab</Link>
             </p>
@@ -50,23 +56,8 @@ class StoredDictionary extends Component {
     );
   }
 
-  updateFromStore() {
-    this.setState({
-      words: DictionaryStore.getAll(),
-      isFetching: DictionaryStore.isFetching
-    });
-  }
-
-  createWord() {
-    DictionaryActions.createWord(Date.now(), Date.now());
-  }
-
-  reloadWords() {
-    DictionaryActions.reloadWords();
-  }
-
   getWords() {
-    const { words } = this.state;
+    const { words } = this.props;
     return words.map(w => {
       return (
         <DictionaryWord
@@ -79,11 +70,16 @@ class StoredDictionary extends Component {
       );
     });
   }
-  handleDelete(wordToDelete) {
-    if (wordToDelete.length === 0) {
-      return;
-    }
-    DictionaryActions.deleteWord(wordToDelete);
+  handleSave() {
+    this.props.dispatch(createWord("Pristen", "The priest"));
+  }
+
+  handleDelete(word) {
+    this.props.dispatch(deleteWord(word));
+  }
+
+  reloadWords() {
+    this.props.dispatch(fetchWords());
   }
 }
 

@@ -1,31 +1,33 @@
 import dispatcher from "../dispatcher";
 
 export function createWord(word, translation) {
-  dispatcher.dispatch({
+  return {
     type: "CREATE_DICT_WORD",
-    word: word,
-    translation: translation
-  });
+    payload: {
+      word: word,
+      translation: translation
+    }
+  };
 }
 
 export function deleteWord(word) {
-  dispatcher.dispatch({
+  return {
     type: "DELETE_DICT_WORD",
-    word: word
-  });
+    payload: {
+      word: word
+    }
+  };
 }
 
-export function reloadWords(word) {
-  dispatcher.dispatch({
-    type: "FETCH_WORDS"
-  });
-  setTimeout(() => {
-    dispatcher.dispatch({
-      type: "RECEIVED_WORDS",
+export function fetchWords() {
+  return {
+    type: "FETCH_WORDS_FULFILLED",
+    payload: {
       words: [
-        { id: 12, word: "Kooken", translation: "Cook" },
-        { id: 5, word: "Eplet", translation: "Apple" }
+        { id: 1, word: "Huset", translation: "House" },
+        { id: 2, word: "Kona", translation: "Wife" },
+        { id: 3, word: "Jenta", translation: "Girl" }
       ]
-    });
-  }, 1000);
+    }
+  };
 }

@@ -3,24 +3,47 @@
   "version": "0.0.0",
   "private": true,
   "author": "Rafael Valiev (feelermorses@gmail.com",
+  "main": "webpack.config.js",
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
+  },
   "dependencies": {
+    "@babel/cli": "^7.0.0-beta.40",
+    "@babel/core": "^7.0.0-beta.40",
+    "@babel/plugin-proposal-decorators": "^7.2.2",
+    "@babel/preset-es2015": "^7.0.0-beta.53",
+    "@babel/preset-react": "^7.0.0-beta.40",
     "axios": "^0.18.0",
+    "babel-loader": "^8.0.4",
+    "babel-plugin-react": "^1.0.0",
+    "babel-preset-env": "^1.7.0",
     "bootstrap": "^4.1.1",
+    "css-loader": "^2.0.1",
     "flux": "^3.1.3",
     "history": "^4.7.2",
+    "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
+    "react-hot-loader": "^4.6.0",
+    "react-redux": "^6.0.0",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-promise-middleware": "^5.1.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "webpack": "^4.27.1",
+    "webpack-dev-server": "^3.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "webpack-dev-server --open --hot --mode development --progress --color",
+    "build": "webpack --mode production",
+    "starts": "react-scripts start",
+    "builds": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -32,5 +55,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "webpack-cli": "^3.1.2"
+  }
 }

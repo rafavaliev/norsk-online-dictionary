@@ -10,21 +10,17 @@ class Header extends Component {
   render() {
     return (
       <nav className="navbar navbar-inverse navbar-fixed-top">
-        <div className="container">
-          <div className="navbar-collapse">
-            <ul className="nav navbar-nav">
-              <li>
-                <Link to="/">Translate</Link>
-              </li>
-              <li>
-                <Link to="/dictionary">My words</Link>
-              </li>
-              <li>
-                <Link to="/settings">Settings</Link>
-              </li>
-            </ul>
-          </div>
-        </div>
+        <ul class="nav m-1">
+          <li class="nav-item m-1">
+            <Link to="/">Translate</Link>
+          </li>
+          <li class="nav-item m-1">
+            <Link to="/dictionary">My words</Link>
+          </li>
+          <li class="nav-item m-1">
+            <Link to="/settings">Settings</Link>
+          </li>
+        </ul>
       </nav>
     );
   }
