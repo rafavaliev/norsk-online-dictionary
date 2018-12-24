@@ -1,0 +1,24 @@
+{
+    "name": "NativeWord",
+    "fields": [
+        {
+            "fieldName": "word",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "lang",
+            "fieldType": "Language",
+            "fieldValues": "FRENCH,ENGLISH,SPANISH"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20181224212717",
+    "entityTableName": "native_word",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

@@ -1,0 +1,23 @@
+{
+  "backendApp": {
+    "nativeWord": {
+      "home": {
+        "title": "Native Words",
+        "createLabel": "Create a new Native Word",
+        "createOrEditLabel": "Create or edit a Native Word",
+        "search": "Search for Native Word"
+      },
+      "created": "A new Native Word is created with identifier {{ param }}",
+      "updated": "A Native Word is updated with identifier {{ param }}",
+      "deleted": "A Native Word is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Native Word {{ id }}?"
+      },
+      "detail": {
+        "title": "Native Word"
+      },
+      "word": "Word",
+      "lang": "Lang"
+    }
+  }
+}
